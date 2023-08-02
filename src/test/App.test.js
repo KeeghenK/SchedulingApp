@@ -1,12 +1,24 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { eventList } from "../App";
 import App from "../App";
 
-describe("event", () => {
-	it("should render input", () => {
+describe("event title", () => {
+	const inputTitle = () => {
+		return screen.getByRole("test-title-input");
+	};
+
+	beforeEach(() => {
 		render(<App />);
+	});
 
-		const input = screen.getByRole("test-title-input");
+	it("should render title input", () => {
+		expect(inputTitle()).toBeTruthy();
+	});
 
-		expect(input).toBeTruthy();
+	it("should save title when entered", () => {
+		inputTitle.value = "1";
+		fireEvent.keyDown(inputTitle(), { key: "Enter" });
+
+		expect(eventList).toEqual([inputTitle().value]);
 	});
 });
