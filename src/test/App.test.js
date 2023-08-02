@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { eventList } from "../App";
+import { eventsSaved } from "../App";
 import App from "../App";
 
 describe("event title", () => {
@@ -7,8 +7,14 @@ describe("event title", () => {
 		return screen.getByRole("test-title-input");
 	};
 
+	const saveEvent = () => {
+		inputTitle().value = "1";
+		fireEvent.keyDown(inputTitle(), { key: "Enter" });
+	};
+
 	beforeEach(() => {
 		render(<App />);
+		eventsSaved.pop();
 	});
 
 	it("should render title input", () => {
@@ -16,17 +22,24 @@ describe("event title", () => {
 	});
 
 	it("should save title when entered", () => {
-		inputTitle.value = "1";
-		fireEvent.keyDown(inputTitle(), { key: "Enter" });
+		saveEvent();
 
-		expect(eventList).toEqual([inputTitle().value]);
+		expect(eventsSaved).toEqual([inputTitle().value]);
 	});
 
 	it("should on save return text event saved", () => {
 		const validateEnter = screen.getByRole("test-title-input-validator");
 
-		fireEvent.keyDown(inputTitle(), { key: "Enter" });
+		saveEvent();
 
 		expect(validateEnter.innerHTML).toEqual("Event saved.");
+	});
+
+	it("should display event title in a list if saved", () => {
+		const eventList = screen.getByRole("test-event-list");
+
+		saveEvent();
+
+		expect(eventList.innerHTML).toContain("1");
 	});
 });

@@ -1,14 +1,16 @@
 import { useState } from "react";
 
-export const eventList = [];
+export const eventsSaved = [];
 
 function App() {
 	const [validator, setValidator] = useState(false);
+	const [eventList, setEventList] = useState([]);
 
 	const useEnterKey = (event) => {
 		if (event.key === "Enter") {
-			eventList.push(event.target.value);
+			setEventList([...eventList, event.target.value]);
 			setValidator(true);
+			eventsSaved.push(event.target.value);
 		}
 	};
 
@@ -21,6 +23,11 @@ function App() {
 			<p role="test-title-input-validator">
 				{validator === true ? "Event saved." : null}
 			</p>
+			<div role="test-event-list">
+				{eventList.map((event) => (
+					<ul key={eventList.indexOf(event)}>{event}</ul>
+				))}
+			</div>
 		</div>
 	);
 }
