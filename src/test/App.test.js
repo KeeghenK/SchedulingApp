@@ -1,6 +1,12 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { eventsSaved } from "../App";
+import {
+	fireEvent,
+	render,
+	screen,
+	renderHook,
+	act,
+} from "@testing-library/react";
 import App from "../App";
+import useEvents from "../hooks/useEvents";
 
 describe("event title", () => {
 	const inputTitle = () => {
@@ -14,7 +20,6 @@ describe("event title", () => {
 
 	beforeEach(() => {
 		render(<App />);
-		eventsSaved.pop();
 	});
 
 	it("should render title input", () => {
@@ -22,9 +27,13 @@ describe("event title", () => {
 	});
 
 	it("should save title when entered", () => {
-		saveEvent();
+		const { result } = renderHook(useEvents);
 
-		expect(eventsSaved).toEqual([inputTitle().value]);
+		act(() => {
+			result.current.handleEventChange([...result.current.eventList, "1"]);
+		});
+
+		expect(result.current.eventList).toContain("1");
 	});
 
 	it("should on save return text event saved", () => {

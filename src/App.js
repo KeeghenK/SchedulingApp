@@ -1,16 +1,15 @@
-import { useState } from "react";
-
-export const eventsSaved = [];
+import useEvents from "./hooks/useEvents";
+import useValidation from "./hooks/useValidation";
 
 function App() {
-	const [validator, setValidator] = useState(false);
-	const [eventList, setEventList] = useState([]);
+	const { validator, handleValidation } = useValidation();
+	const { eventList, handleEventChange } = useEvents();
+	let i = 0;
 
-	const useEnterKey = (event) => {
+	const pressEnter = (event) => {
 		if (event.key === "Enter") {
-			setEventList([...eventList, event.target.value]);
-			setValidator(true);
-			eventsSaved.push(event.target.value);
+			handleEventChange([...eventList, event.target.value]);
+			handleValidation(true);
 		}
 	};
 
@@ -18,14 +17,14 @@ function App() {
 		<div className="App">
 			<input
 				role="test-title-input"
-				onKeyDown={useEnterKey}
+				onKeyDown={pressEnter}
 			/>
 			<p role="test-title-input-validator">
 				{validator === true ? "Event saved." : null}
 			</p>
 			<div role="test-event-list">
 				{eventList.map((event) => (
-					<ul key={eventList.indexOf(event)}>{event}</ul>
+					<ul key={++i}>{event}</ul>
 				))}
 			</div>
 		</div>
