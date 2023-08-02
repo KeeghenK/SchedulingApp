@@ -21,4 +21,12 @@ describe("event title", () => {
 
 		expect(eventList).toEqual([inputTitle().value]);
 	});
+
+	it("should on save return text event saved", () => {
+		const validateEnter = screen.getByRole("test-title-input-validator");
+
+		fireEvent.keyDown(inputTitle(), { key: "Enter" });
+
+		expect(validateEnter.innerHTML).toEqual("Event saved.");
+	});
 });
