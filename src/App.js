@@ -20,7 +20,7 @@ function App() {
 				onKeyDown={pressEnter}
 			/>
 			<p role="test-title-input-validator">
-				{validator === true ? "Event saved." : null}
+				{validator === true ? "Event saved." : "No events"}
 			</p>
 			<div role="test-event-list">
 				{eventList.map((event) => (

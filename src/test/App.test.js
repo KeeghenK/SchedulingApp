@@ -36,7 +36,7 @@ describe("event title", () => {
 		expect(result.current.eventList).toContain("1");
 	});
 
-	it("should on save return text event saved", () => {
+	it("should on save display text event saved", () => {
 		const validateEnter = screen.getByRole("test-title-input-validator");
 
 		saveEvent();
@@ -44,11 +44,26 @@ describe("event title", () => {
 		expect(validateEnter.innerHTML).toEqual("Event saved.");
 	});
 
-	it("should display event title in a list if saved", () => {
+	it("should on no events saved display no events", () => {
+		const validateEnter = screen.getByRole("test-title-input-validator");
+
+		expect(validateEnter.innerHTML).toEqual("No events");
+	});
+
+	it("should display one event title in a list if only one event is saved", () => {
 		const eventList = screen.getByRole("test-event-list");
 
 		saveEvent();
 
 		expect(eventList.innerHTML).toContain("1");
+	});
+
+	it("should display multiple event titles in a list if multiple are saved", () => {
+		const eventList = screen.getByRole("test-event-list");
+
+		saveEvent();
+		saveEvent();
+
+		expect(eventList.children).toHaveLength(2);
 	});
 });
