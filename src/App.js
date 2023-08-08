@@ -22,11 +22,11 @@ function App() {
 			<p role="test-title-input-validator">
 				{validator === true ? "Event saved." : "No events"}
 			</p>
-			<div role="test-event-list">
+			<ul role="test-event-list">
 				{eventList.map((event) => (
-					<ul key={++i}>{event}</ul>
+					<li key={++i}>{event}</li>
 				))}
-			</div>
+			</ul>
 		</div>
 	);
 }

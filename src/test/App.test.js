@@ -55,7 +55,7 @@ describe("event title", () => {
 
 		saveEvent();
 
-		expect(eventList.innerHTML).toContain("1");
+		expect(eventList.children).toHaveLength(1);
 	});
 
 	it("should display multiple event titles in a list if multiple are saved", () => {
