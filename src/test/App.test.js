@@ -82,4 +82,12 @@ describe("event title", () => {
 
 		expect(validateEnter.innerHTML).toEqual("Please enter valid title.");
 	});
+
+	it("should not save event if there are just spaces", () => {
+		const validateEnter = getTestRole("test-title-input-validator");
+
+		saveEvent("    ");
+
+		expect(validateEnter.innerHTML).toEqual("Please enter valid title.");
+	});
 });

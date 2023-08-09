@@ -7,7 +7,7 @@ function App() {
 	let i = 0;
 
 	const pressEnter = (event) => {
-		if (event.key === "Enter" && event.target.value !== "") {
+		if (event.key === "Enter" && event.target.value.trim() !== "") {
 			handleEventChange([...eventList, event.target.value]);
 			handleValidationMessage("Event saved.");
 		} else {
