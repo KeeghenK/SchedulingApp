@@ -9,13 +9,13 @@ import App from "../App";
 import useEvents from "../hooks/useEvents";
 
 describe("event title", () => {
-	const inputTitle = () => {
-		return screen.getByRole("test-title-input");
+	const getTestRole = (name) => {
+		return screen.getByRole(name);
 	};
 
-	const saveEvent = () => {
-		inputTitle().value = "1";
-		fireEvent.keyDown(inputTitle(), { key: "Enter" });
+	const saveEvent = (name) => {
+		getTestRole("test-title-input").value = name;
+		fireEvent.keyDown(getTestRole("test-title-input"), { key: "Enter" });
 	};
 
 	beforeEach(() => {
@@ -23,7 +23,7 @@ describe("event title", () => {
 	});
 
 	it("should render title input", () => {
-		expect(inputTitle()).toBeTruthy();
+		expect(getTestRole("test-title-input")).toBeTruthy();
 	});
 
 	it("should save title when entered", () => {
@@ -37,49 +37,48 @@ describe("event title", () => {
 	});
 
 	it("should on save display text event saved", () => {
-		const validateEnter = screen.getByRole("test-title-input-validator");
+		const validateEnter = getTestRole("test-title-input-validator");
 
-		saveEvent();
+		saveEvent("a");
 
 		expect(validateEnter.innerHTML).toEqual("Event saved.");
 	});
 
 	it("should on no events saved display no events", () => {
-		const validateEnter = screen.getByRole("test-title-input-validator");
+		const validateEnter = getTestRole("test-title-input-validator");
 
 		expect(validateEnter.innerHTML).toEqual("No events.");
 	});
 
 	it("should display one event title in a list if only one event is saved", () => {
-		const eventList = screen.getByRole("test-event-list");
+		const eventList = getTestRole("test-event-list");
 
-		saveEvent();
+		saveEvent("a");
 
 		expect(eventList.children).toHaveLength(1);
 	});
 
 	it("should display multiple event titles in a list if multiple are saved", () => {
-		const eventList = screen.getByRole("test-event-list");
+		const eventList = getTestRole("test-event-list");
 
-		saveEvent();
-		saveEvent();
+		saveEvent("a");
+		saveEvent("a");
 
 		expect(eventList.children).toHaveLength(2);
 	});
 
 	it("should save event if at least one character", () => {
-		const validateEnter = screen.getByRole("test-title-input-validator");
+		const validateEnter = getTestRole("test-title-input-validator");
 
-		saveEvent();
+		saveEvent("a");
 
 		expect(validateEnter.innerHTML).toEqual("Event saved.");
 	});
 
 	it("should not save event if there are no characters", () => {
-		const validateEnter = screen.getByRole("test-title-input-validator");
+		const validateEnter = getTestRole("test-title-input-validator");
 
-		inputTitle().value = "";
-		fireEvent.keyDown(inputTitle(), { key: "Enter" });
+		saveEvent("");
 
 		expect(validateEnter.innerHTML).toEqual("No events.");
 	});
