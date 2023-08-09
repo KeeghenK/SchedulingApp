@@ -1,15 +1,17 @@
 import useEvents from "./hooks/useEvents";
-import useValidation from "./hooks/useValidation";
+import useValidationMessage from "./hooks/useValidationMessage";
 
 function App() {
-	const { validator, handleValidation } = useValidation();
+	const { validateMessage, handleValidationMessage } = useValidationMessage();
 	const { eventList, handleEventChange } = useEvents();
 	let i = 0;
 
 	const pressEnter = (event) => {
 		if (event.key === "Enter" && event.target.value !== "") {
 			handleEventChange([...eventList, event.target.value]);
-			handleValidation(true);
+			handleValidationMessage("Event saved.");
+		} else {
+			handleValidationMessage("Please enter valid title.");
 		}
 	};
 
@@ -19,9 +21,7 @@ function App() {
 				role="test-title-input"
 				onKeyDown={pressEnter}
 			/>
-			<p role="test-title-input-validator">
-				{validator === true ? "Event saved." : "No events."}
-			</p>
+			<p role="test-title-input-validator">{validateMessage}</p>
 			<ul role="test-event-list">
 				{eventList.map((event) => (
 					<li key={++i}>{event}</li>

@@ -80,6 +80,6 @@ describe("event title", () => {
 
 		saveEvent("");
 
-		expect(validateEnter.innerHTML).toEqual("No events.");
+		expect(validateEnter.innerHTML).toEqual("Please enter valid title.");
 	});
 });
