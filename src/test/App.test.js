@@ -47,7 +47,7 @@ describe("event title", () => {
 	it("should on no events saved display no events", () => {
 		const validateEnter = screen.getByRole("test-title-input-validator");
 
-		expect(validateEnter.innerHTML).toEqual("No events");
+		expect(validateEnter.innerHTML).toEqual("No events.");
 	});
 
 	it("should display one event title in a list if only one event is saved", () => {
@@ -65,5 +65,22 @@ describe("event title", () => {
 		saveEvent();
 
 		expect(eventList.children).toHaveLength(2);
+	});
+
+	it("should save event if at least one character", () => {
+		const validateEnter = screen.getByRole("test-title-input-validator");
+
+		saveEvent();
+
+		expect(validateEnter.innerHTML).toEqual("Event saved.");
+	});
+
+	it("should not save event if there are no characters", () => {
+		const validateEnter = screen.getByRole("test-title-input-validator");
+
+		inputTitle().value = "";
+		fireEvent.keyDown(inputTitle(), { key: "Enter" });
+
+		expect(validateEnter.innerHTML).toEqual("No events.");
 	});
 });

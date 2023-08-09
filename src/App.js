@@ -7,7 +7,7 @@ function App() {
 	let i = 0;
 
 	const pressEnter = (event) => {
-		if (event.key === "Enter") {
+		if (event.key === "Enter" && event.target.value !== "") {
 			handleEventChange([...eventList, event.target.value]);
 			handleValidation(true);
 		}
@@ -20,7 +20,7 @@ function App() {
 				onKeyDown={pressEnter}
 			/>
 			<p role="test-title-input-validator">
-				{validator === true ? "Event saved." : "No events"}
+				{validator === true ? "Event saved." : "No events."}
 			</p>
 			<ul role="test-event-list">
 				{eventList.map((event) => (
