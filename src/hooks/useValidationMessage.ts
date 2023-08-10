@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 const useValidationMessage = () => {
-	const [validateMessage, setValidateMessage] = useState("No events.");
+	const [validateMessage, setValidateMessage] = useState<string>("No events.");
 
-	const handleValidationMessage = (props) => setValidateMessage(props);
+	const handleValidationMessage = (props: string) => setValidateMessage(props);
 
 	return { validateMessage, handleValidationMessage };
 };

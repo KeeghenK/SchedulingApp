@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 const useEvents = () => {
-	const [eventList, setEventList] = useState([]);
+	const [eventList, setEventList] = useState<string[]>([]);
 
-	const handleEventChange = (props) => setEventList(props);
+	const handleEventChange = (props: string[]) => setEventList(props);
 
 	return { eventList, handleEventChange };
 };
