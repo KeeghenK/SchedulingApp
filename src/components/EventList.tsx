@@ -7,7 +7,7 @@ const EventList = () => {
 	return (
 		<div data-testid="test-event-list">
 			{eventList.map((event, i) => (
-				<ul key={i}>{event}</ul>
+				<ul key={i}>{event.title}</ul>
 			))}
 		</div>
 	);

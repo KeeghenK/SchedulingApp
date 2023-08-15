@@ -14,11 +14,14 @@ describe("event list", () => {
 		return screen.getByTestId(name);
 	};
 
-	const saveEvent = (name: string) => {
-		const input = getTestId("test-title-input");
+	const saveEvent = (title: string, description: string) => {
+		const titleInput = getTestId("test-title-input");
+		const descriptionInput = getTestId("test-description-input");
+		const inputButton = getTestId("test-input-button");
 
-		fireEvent.input(input, { target: { value: name } });
-		fireEvent.keyDown(input, { key: "Enter" });
+		fireEvent.input(titleInput, { target: { value: title } });
+		fireEvent.input(descriptionInput, { target: { value: description } });
+		fireEvent.click(inputButton);
 	};
 
 	beforeEach(() => {
@@ -37,16 +40,21 @@ describe("event list", () => {
 		const { result } = renderHook(() => useEventsStore());
 
 		act(() => {
-			result.current.addEvent("Hello");
+			result.current.addEvent({ title: "t", description: "d" });
 		});
 
-		expect(result.current.eventList).toContain("Hello");
+		expect(result.current.eventList).toEqual([
+			{
+				title: "t",
+				description: "d",
+			},
+		]);
 	});
 
 	it("should display one event title in a list if only one event is saved", () => {
 		const eventList = getTestId("test-event-list");
 
-		saveEvent("Hello");
+		saveEvent("t", "d");
 
 		expect(eventList.children).toHaveLength(1);
 	});
@@ -54,8 +62,8 @@ describe("event list", () => {
 	it("should display multiple event titles in a list if multiple are saved", () => {
 		const eventList = getTestId("test-event-list");
 
-		saveEvent("Hello");
-		saveEvent("Hello");
+		saveEvent("t", "d");
+		saveEvent("t", "d");
 
 		expect(eventList.children).toHaveLength(2);
 	});

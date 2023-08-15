@@ -1,13 +1,12 @@
 import React from "react";
+import EventForm from "./EventForm";
 import EventList from "./EventList";
-import TitleInput from "./TitleInput";
 import ValidationMessage from "./ValidationMessage";
 
 function App() {
 	return (
 		<div className="App">
-			<TitleInput />
-			<input data-testid="test-description-input" />
+			<EventForm />
 			<ValidationMessage />
 			<EventList />
 		</div>
