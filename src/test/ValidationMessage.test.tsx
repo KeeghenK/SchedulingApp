@@ -18,7 +18,7 @@ describe("tilte input validation", () => {
 	const saveEvent = (title: string, description: string) => {
 		const titleInput = getTestId("test-title-input");
 		const descriptionInput = getTestId("test-description-input");
-		const inputButton = getTestId("test-input-button");
+		const inputButton = getTestId("test-event-form-button");
 
 		fireEvent.input(titleInput, { target: { value: title } });
 		fireEvent.input(descriptionInput, { target: { value: description } });
@@ -64,7 +64,7 @@ describe("tilte input validation", () => {
 		expect(validateEnter.innerHTML).toEqual("No events.");
 	});
 
-	it("should save event if at least one character", () => {
+	it("should save event if at least one character in title input", () => {
 		const validateEnter = getTestId("test-title-input-validator");
 
 		saveEvent("t", "d");
@@ -72,7 +72,7 @@ describe("tilte input validation", () => {
 		expect(validateEnter.innerHTML).toEqual("Event saved.");
 	});
 
-	it("should not save event if there are no characters", () => {
+	it("should not save event if there are no characters in title input", () => {
 		const validateEnter = getTestId("test-title-input-validator");
 
 		saveEvent("", "d");
@@ -80,7 +80,7 @@ describe("tilte input validation", () => {
 		expect(validateEnter.innerHTML).toEqual("Please enter valid title.");
 	});
 
-	it("should not save event if there are just spaces", () => {
+	it("should not save event if there are just spaces in title input", () => {
 		const validateEnter = getTestId("test-title-input-validator");
 
 		saveEvent("    ", "d");

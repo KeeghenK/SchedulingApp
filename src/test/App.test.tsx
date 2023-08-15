@@ -19,6 +19,10 @@ describe("app render", () => {
 		expect(getTestId("test-description-input")).toBeTruthy();
 	});
 
+	it("should render event form button", () => {
+		expect(getTestId("test-event-form-button")).toBeTruthy();
+	});
+
 	it("should render validation message", () => {
 		expect(getTestId("test-title-input-validator")).toBeTruthy();
 	});

@@ -17,11 +17,19 @@ describe("event list", () => {
 	const saveEvent = (title: string, description: string) => {
 		const titleInput = getTestId("test-title-input");
 		const descriptionInput = getTestId("test-description-input");
-		const inputButton = getTestId("test-input-button");
+		const inputButton = getTestId("test-event-form-button");
 
 		fireEvent.input(titleInput, { target: { value: title } });
 		fireEvent.input(descriptionInput, { target: { value: description } });
 		fireEvent.click(inputButton);
+	};
+
+	const resetEventsList = () => {
+		const { result } = renderHook(() => useEventsStore());
+
+		act(() => {
+			result.current.clearEvents();
+		});
 	};
 
 	beforeEach(() => {
@@ -29,11 +37,7 @@ describe("event list", () => {
 	});
 
 	afterEach(() => {
-		const { result } = renderHook(() => useEventsStore());
-
-		act(() => {
-			result.current.clearEvents();
-		});
+		resetEventsList();
 	});
 
 	it("should save title when entered", () => {
