@@ -7,6 +7,7 @@ function App() {
 	return (
 		<div className="App">
 			<TitleInput />
+			<input data-testid="test-description-input" />
 			<ValidationMessage />
 			<EventList />
 		</div>

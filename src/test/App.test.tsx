@@ -15,6 +15,10 @@ describe("app render", () => {
 		expect(getTestId("test-title-input")).toBeTruthy();
 	});
 
+	it("should render description input", () => {
+		expect(getTestId("test-description-input")).toBeTruthy();
+	});
+
 	it("should render validation message", () => {
 		expect(getTestId("test-title-input-validator")).toBeTruthy();
 	});
