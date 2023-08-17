@@ -1,4 +1,7 @@
-<h1 align="center">Scheduling App Keeghen Kessler</h1>
+![Security Checks](https://github.com/KeeghenK/SchedulingApp/actions/workflows/codeql-analysis.yml/badge.svg)
+![React Tests](https://github.com/KeeghenK/SchedulingApp/actions/workflows/node.js.yml/badge.svg)
+
+<h1 align="center">Scheduling App</h1>
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=keeghenk&label=Profile%20views&color=0e75b6&style=flat" alt="keeghenk" /> </p>
 
 <h3 align="left">Connect with me:</h3>
