@@ -11,6 +11,9 @@ import { useTitleStore } from "../hooks/titleStore";
 import { useValidationMessageStore } from "../hooks/validationMessageStore";
 
 describe("tilte input validation", () => {
+	const testTitle = "Title";
+	const testDescription = "Description";
+
 	const getTestId = (name: string) => {
 		return screen.getByTestId(name);
 	};
@@ -53,7 +56,7 @@ describe("tilte input validation", () => {
 	it("should on save display text event saved", () => {
 		const validateEnter = getTestId("test-title-input-validator");
 
-		saveEvent("t", "d");
+		saveEvent(testTitle, testDescription);
 
 		expect(validateEnter.innerHTML).toEqual("Event saved.");
 	});
@@ -67,7 +70,7 @@ describe("tilte input validation", () => {
 	it("should save event if at least one character in title input", () => {
 		const validateEnter = getTestId("test-title-input-validator");
 
-		saveEvent("t", "d");
+		saveEvent("t", testDescription);
 
 		expect(validateEnter.innerHTML).toEqual("Event saved.");
 	});
@@ -75,7 +78,7 @@ describe("tilte input validation", () => {
 	it("should not save event if there are no characters in title input", () => {
 		const validateEnter = getTestId("test-title-input-validator");
 
-		saveEvent("", "d");
+		saveEvent("", testDescription);
 
 		expect(validateEnter.innerHTML).toEqual("Please enter valid title.");
 	});
@@ -83,7 +86,7 @@ describe("tilte input validation", () => {
 	it("should not save event if there are just spaces in title input", () => {
 		const validateEnter = getTestId("test-title-input-validator");
 
-		saveEvent("    ", "d");
+		saveEvent("    ", testDescription);
 
 		expect(validateEnter.innerHTML).toEqual("Please enter valid title.");
 	});

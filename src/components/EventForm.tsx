@@ -14,7 +14,6 @@ const EventForm = () => {
 	const { description } = useDescriptionStore();
 
 	const pressEnter = (title: string, description: string) => {
-		console.log(title);
 		if (title.trim().length) {
 			addEvent({ title, description });
 			changeMessage("Event saved.");

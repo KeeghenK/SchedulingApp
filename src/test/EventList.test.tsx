@@ -10,6 +10,9 @@ import App from "../components/App";
 import { useEventsStore } from "../hooks/eventsStore";
 
 describe("event list", () => {
+	const testTitle = "Title";
+	const testDescription = "Description";
+
 	const getTestId = (name: string) => {
 		return screen.getByTestId(name);
 	};
@@ -44,13 +47,16 @@ describe("event list", () => {
 		const { result } = renderHook(() => useEventsStore());
 
 		act(() => {
-			result.current.addEvent({ title: "t", description: "d" });
+			result.current.addEvent({
+				title: testTitle,
+				description: testDescription,
+			});
 		});
 
 		expect(result.current.eventList).toEqual([
 			{
-				title: "t",
-				description: "d",
+				title: testTitle,
+				description: testDescription,
 			},
 		]);
 	});
@@ -58,7 +64,7 @@ describe("event list", () => {
 	it("should display one event title in a list if only one event is saved", () => {
 		const eventList = getTestId("test-event-list");
 
-		saveEvent("t", "d");
+		saveEvent(testTitle, testDescription);
 
 		expect(eventList.children).toHaveLength(1);
 	});
@@ -66,8 +72,8 @@ describe("event list", () => {
 	it("should display multiple event titles in a list if multiple are saved", () => {
 		const eventList = getTestId("test-event-list");
 
-		saveEvent("t", "d");
-		saveEvent("t", "d");
+		saveEvent(testTitle, testDescription);
+		saveEvent(testTitle, testDescription);
 
 		expect(eventList.children).toHaveLength(2);
 	});
