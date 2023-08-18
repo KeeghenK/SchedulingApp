@@ -14,10 +14,13 @@ const EventForm = () => {
 	const { description } = useDescriptionStore();
 
 	const pressEnter = (title: string, description: string) => {
-		if (title.trim().length) {
+		if (title.trim() && description.trim()) {
 			addEvent({ title, description });
 			changeMessage("Event saved.");
-		} else changeMessage("Please enter valid title.");
+		} else {
+			if (!title.trim()) changeMessage("Please enter valid title.");
+			else changeMessage("Please enter valid description.");
+		}
 	};
 
 	return (
