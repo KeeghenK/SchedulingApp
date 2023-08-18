@@ -6,8 +6,8 @@ import ValidationMessage from "./ValidationMessage";
 function App() {
 	return (
 		<div className="App">
-			<EventForm />
 			<ValidationMessage />
+			<EventForm />
 			<EventList />
 		</div>
 	);

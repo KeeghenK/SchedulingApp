@@ -9,6 +9,6 @@ interface Title {
 export const useTitleStore = create<Title>((set) => ({
   title: "",
   titleChange: (input: string) => {
-    set((state) => ({ title: input }))},
+    set(() => ({ title: input }))},
   undoChange: () => set(() => ({ title: "" }))
 }))

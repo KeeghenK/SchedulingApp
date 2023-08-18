@@ -8,5 +8,5 @@ interface Description {
 export const useDescriptionStore = create<Description>((set) => ({
   description: "",
   descriptionChange: (input: string) => {
-    set((state) => ({ description: input }))}
+    set(() => ({ description: input }))}
 }))

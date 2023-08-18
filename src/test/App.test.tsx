@@ -12,10 +12,6 @@ describe("app render", () => {
 	});
 
 	it("should render title input", () => {
-		expect(getTestId("test-input")).toBeTruthy();
-	});
-
-	it("should render title input", () => {
 		expect(getTestId("test-title-input")).toBeTruthy();
 	});
 
