@@ -22,6 +22,7 @@ const EventForm = () => {
 		>
 			<TitleInput />
 			<DescriptionInput />
+			<input data-testId="test-date-input"></input>
 			<InputEnterButton />
 		</form>
 	);
