@@ -7,41 +7,28 @@ import {
 } from "@testing-library/react";
 import React from "react";
 import App from "../components/App";
+import { useDescriptionStore } from "../hooks/descriptionStore";
 import { useTitleStore } from "../hooks/titleStore";
 import { useValidationMessageStore } from "../hooks/validationMessageStore";
 
-describe("tilte input validation", () => {
+describe("validation message", () => {
 	const testTitle = "Title";
 	const testDescription = "Description";
 
-	const getTestId = (name: string) => {
-		return screen.getByTestId(name);
-	};
-
 	const saveEvent = (title: string, description: string) => {
-		const titleInput = getTestId("test-title-input");
-		const descriptionInput = getTestId("test-description-input");
-		const inputButton = getTestId("test-event-form-button");
+		const titleInput = screen.getByTestId("test-title-input");
+		const descriptionInput = screen.getByTestId("test-description-input");
+		const inputButton = screen.getByTestId("test-event-form-button");
 
 		fireEvent.input(titleInput, { target: { value: title } });
 		fireEvent.input(descriptionInput, { target: { value: description } });
 		fireEvent.click(inputButton);
 	};
 
-	const resetTitle = () => {
-		const { result } = renderHook(() => useTitleStore());
-
-		act(() => {
-			result.current.undoChange();
-		});
-	};
-
-	const resetValidationMessage = () => {
-		const { result } = renderHook(() => useValidationMessageStore());
-
-		act(() => {
-			result.current.resetMessage();
-		});
+	const validateMessageEquals = (message: string) => {
+		expect(screen.getByTestId("test-title-input-validator").innerHTML).toEqual(
+			message
+		);
 	};
 
 	beforeEach(() => {
@@ -49,45 +36,74 @@ describe("tilte input validation", () => {
 	});
 
 	afterEach(() => {
+		const resetInput = (store: () => any) => {
+			const { result } = renderHook(() => store());
+
+			act(() => {
+				result.current.undoChange();
+			});
+		};
+
+		const resetValidationMessage = () => {
+			const { result } = renderHook(() => useValidationMessageStore());
+
+			act(() => {
+				result.current.resetMessage();
+			});
+		};
+
 		resetValidationMessage();
-		resetTitle();
+		resetInput(useTitleStore);
+		resetInput(useDescriptionStore);
 	});
 
 	it("should on save display text event saved", () => {
-		const validateEnter = getTestId("test-title-input-validator");
-
 		saveEvent(testTitle, testDescription);
 
-		expect(validateEnter.innerHTML).toEqual("Event saved.");
+		validateMessageEquals("Event saved.");
 	});
 
 	it("should on no events saved display no events", () => {
-		const validateEnter = getTestId("test-title-input-validator");
-
-		expect(validateEnter.innerHTML).toEqual("No events.");
+		validateMessageEquals("No events.");
 	});
 
-	it("should save event if at least one character in title input", () => {
-		const validateEnter = getTestId("test-title-input-validator");
+	describe("title input", () => {
+		it("should save event if at least one character", () => {
+			saveEvent("t", testDescription);
 
-		saveEvent("t", testDescription);
+			validateMessageEquals("Event saved.");
+		});
 
-		expect(validateEnter.innerHTML).toEqual("Event saved.");
+		it("should display please enter valid title when there are no characters", () => {
+			saveEvent("", testDescription);
+
+			validateMessageEquals("Please enter valid title.");
+		});
+
+		it("should display please enter valid title when there are only spaces", () => {
+			saveEvent("    ", testDescription);
+
+			validateMessageEquals("Please enter valid title.");
+		});
 	});
 
-	it("should not save event if there are no characters in title input", () => {
-		const validateEnter = getTestId("test-title-input-validator");
+	describe("discription input", () => {
+		it("should save event if at least one character in description input", () => {
+			saveEvent(testTitle, "d");
 
-		saveEvent("", testDescription);
+			validateMessageEquals("Event saved.");
+		});
 
-		expect(validateEnter.innerHTML).toEqual("Please enter valid title.");
-	});
+		it("should display please enter valid description when there are no characters in the description input", () => {
+			saveEvent(testTitle, "");
 
-	it("should not save event if there are just spaces in title input", () => {
-		const validateEnter = getTestId("test-title-input-validator");
+			validateMessageEquals("Please enter valid description.");
+		});
 
-		saveEvent("    ", testDescription);
+		it("should display please enter valid description when there are only spaces in the description input", () => {
+			saveEvent(testTitle, "    ");
 
-		expect(validateEnter.innerHTML).toEqual("Please enter valid title.");
+			validateMessageEquals("Please enter valid description.");
+		});
 	});
 });
