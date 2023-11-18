@@ -17,6 +17,7 @@ const EventForm = () => {
 			onSubmit={(event) => {
 				pressEnter(title, description);
 				event.preventDefault();
+				event.currentTarget.reset();
 			}}
 		>
 			<TitleInput />
