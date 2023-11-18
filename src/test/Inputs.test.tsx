@@ -30,4 +30,14 @@ describe("Input feilds", () => {
 
 		expect(titleInput.value).toBeFalsy();
 	});
+
+	it("should reset description input field if saved", () => {
+		const descriptionInput = screen.getByTestId(
+			"test-description-input"
+		) as HTMLInputElement;
+
+		saveEvent(testTitle, testDescription);
+
+		expect(descriptionInput.value).toBeFalsy();
+	});
 });
