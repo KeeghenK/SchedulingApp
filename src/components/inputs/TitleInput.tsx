@@ -1,5 +1,5 @@
 import React from "react";
-import { useTitleStore } from "../hooks/titleStore";
+import { useTitleStore } from "../../hooks/titleStore";
 
 const TitleInput = () => {
 	const { titleChange } = useTitleStore();

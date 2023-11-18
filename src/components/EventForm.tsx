@@ -2,9 +2,10 @@ import React from "react";
 import { useDescriptionStore } from "../hooks/descriptionStore";
 import { useTitleStore } from "../hooks/titleStore";
 import SaveEvent from "./SaveEvent";
-import DescriptionInput from "./DescriptionInput";
+import DescriptionInput from "./inputs/DescriptionInput";
 import InputEnterButton from "./InputEnterButton";
-import TitleInput from "./TitleInput";
+import TitleInput from "./inputs/TitleInput";
+import DateInput from "./inputs/DateInput";
 
 const EventForm = () => {
 	const { title } = useTitleStore();
@@ -22,7 +23,7 @@ const EventForm = () => {
 		>
 			<TitleInput />
 			<DescriptionInput />
-			<input data-testId="test-date-input"></input>
+			<DateInput />
 			<InputEnterButton />
 		</form>
 	);

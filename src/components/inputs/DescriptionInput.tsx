@@ -1,5 +1,5 @@
 import React from "react";
-import { useDescriptionStore } from "../hooks/descriptionStore";
+import { useDescriptionStore } from "../../hooks/descriptionStore";
 
 const DescriptionInput = () => {
 	const { descriptionChange } = useDescriptionStore();
